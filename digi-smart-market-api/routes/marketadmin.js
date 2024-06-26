@@ -3,7 +3,7 @@ const { approveVendor, listApprovals, getMarketVendors, destroyMarketVendors } =
 
 async function vendorApproval(req, res) {
     try {
-        const result = await approveVendor(req.params.id);
+        const result = await approveVendor(req.params.id, req.userId);
         res.status(result.statusCode || 200);
         res.send(result.message || result);
     } catch(error) {

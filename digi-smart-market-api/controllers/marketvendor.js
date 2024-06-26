@@ -1,3 +1,4 @@
+const logger = require('../helpers/logger');
 const models = require('../models');
 const Op = require('sequelize').Op;
 
@@ -9,30 +10,37 @@ async function createMarketVendor(data) {
                 role: 'MarketVendor'
             }
         })
-        if(!userExists) throw new error('User not exists');
+        if(!userExists) {
+            logger.error('User not exists')
+            throw new error('User not exists');
+        }
         const marketExists = await models.Market.findByPk(data.marketId);
-        if(!marketExists) throw new Error('Market is not present');
+        if(!marketExists) {
+            logger.error('Market is not present')
+            throw new Error('Market is not present');
+        }
         const marketVendorExists = await models.MarketVendor.findOne({
             where: {
                 marketId: data.marketId,
                 userId: data.userId
             }
         });
-        console.log(data);
         if(marketVendorExists) throw new Error('Market vendor already exists');
         const result = await models.MarketVendor.create({
             isApproved: false,
             ...data
         })
+        logger.info('Market vendor created successfully')
         return result;
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
 
 async function createLabourer(data, userId) {
     try {
+        logger.info(`UserId for createLaborer ${userId}`)
         const userExists = await models.User.findOne({
             where: { 
                 id: userId,
@@ -40,9 +48,11 @@ async function createLabourer(data, userId) {
             }
         })
         if(!userExists) throw new error('User not exists');
-        console.log(userExists)
         const marketVendorExists = await models.MarketVendor.findOne({ where: { userId: userExists.id} });
-        if(!marketVendorExists) throw new Error('Market vendor is not present');
+        if(!marketVendorExists) {
+            logger.error('Market vendor is not present')
+            throw new Error('Market vendor is not present');
+        }
         const labourerExists = await models.Laborer.findOne({
             where: {
                 marketVendorId: marketVendorExists.id,
@@ -55,18 +65,20 @@ async function createLabourer(data, userId) {
             name: data.name,
             details: data.details
         })
+        logger.info('Laborer created successfully')
         const produce = await models.Produce.create({
             cropName: data.cropName,
             quantity: data.quantity,
             amount: data.amount,
             laborerId: laborer.id
         })
+        logger.info('Produce created successfully')
         return {
             laborer,
             produce
         };
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -76,6 +88,7 @@ async function listLabourer(userId) {
     try {
         let queryObj = {};
         const userExists = await models.User.findByPk(userId);
+        logger.info(`Role of the user in listLabourer is ${userExists.role} `)
         if (userExists.role === 'MarketVendor') {
             let marketVendorIds = await models.MarketVendor.findAll({
                 where: { userId },
@@ -130,6 +143,7 @@ async function listLabourer(userId) {
                 }
             ]
         });
+        logger.info('Query fetching done in listLabourer')
         let response = result.rows.map(ele => {
             return ({
                 id: ele.id,
@@ -157,7 +171,7 @@ async function listLabourer(userId) {
             response
         };
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -167,12 +181,14 @@ async function destroyLabourer(labourerId) {
         const laborerExists = await models.Laborer.findByPk(labourerId);
         if(!laborerExists) throw new Error('Laborer Id not exists');
         await models.Produce.destroy({where: { laborerId: laborerExists.id }})
+        logger.info('Produce deleted successfully')
         await models.Laborer.destroy({ where: {id: labourerId }});
+        logger.info('Labourer deleted successfully')
         return {
             labourerId
         };
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }

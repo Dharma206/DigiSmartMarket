@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, getUser, updateUser, passwordReset, listUsers } = require('../controllers/user')
+const { register, login, getUser, updateUser, passwordReset, listUsers } = require('../controllers/user');
+const logger = require('../helpers/logger')
 
 const Joi = require('joi');
 
@@ -42,6 +43,7 @@ async function registerUser(req, res) {
         if (error) {
             throw new Error(error.details[0].message);
         }
+        logger.info(`Register Schema is validated successfully`)
         const result = await register(data);
         res.status(result.statusCode || 200);
         res.send(result.message || result);

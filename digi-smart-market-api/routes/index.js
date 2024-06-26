@@ -29,7 +29,7 @@ router.post('/labourer', validateToken, checkRole(['MarketVendor']), addLabourer
 router.get('/labourer', validateToken, getLabourers);
 router.delete('/labourer/:id', validateToken, checkRole(['MarketVendor']), deleteLabourer)
 
-router.get('/users', validateToken, checkRole(['Admin']), userListing);
+router.get('/users', validateToken, checkRole(['MarketAdmin']), userListing);
 
 
 module.exports = router;

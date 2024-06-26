@@ -1,0 +1,43 @@
+2024-06-26T19:18:54.700Z [digismart] info: Users fetched successfully
+2024-06-26T19:20:21.111Z [digismart] error: No token provided!
+2024-06-26T19:22:02.247Z [digismart] error: No token provided!
+2024-06-26T19:22:07.378Z [digismart] error: Access denied
+2024-06-26T19:30:28.510Z [digismart] error: Cannot read properties of undefined (reading 'findAndCountAll')
+2024-06-26T19:31:10.097Z [digismart] error: Cannot read properties of undefined (reading 'findAndCountAll')
+2024-06-26T19:31:42.256Z [digismart] error: Cannot read properties of undefined (reading 'findAndCountAll')
+2024-06-26T19:32:17.004Z [digismart] error: Cannot read properties of undefined (reading 'findAndCountAll')
+2024-06-26T20:17:46.321Z [digismart] info: Token verified successfully
+2024-06-26T20:17:46.451Z [digismart] error: Access denied
+2024-06-26T20:36:49.313Z [digismart] info: Email sent successfully
+2024-06-26T20:36:54.254Z [digismart] info: Token verified successfully
+2024-06-26T20:36:54.357Z [digismart] error: Access denied
+2024-06-26T20:37:57.202Z [digismart] info: Token verified successfully
+2024-06-26T20:37:57.249Z [digismart] error: Access denied
+2024-06-26T20:38:37.514Z [digismart] info: Login successful
+2024-06-26T20:38:37.516Z [digismart] info: Returned user details without password
+2024-06-26T20:39:20.949Z [digismart] info: Token verified successfully
+2024-06-26T20:39:20.977Z [digismart] info: Role verified successfully
+2024-06-26T20:39:20.993Z [digismart] error: sendEmailToUser is not a function
+2024-06-26T20:40:05.300Z [digismart] info: Token verified successfully
+2024-06-26T20:40:05.335Z [digismart] info: Role verified successfully
+2024-06-26T20:40:08.204Z [digismart] info: Email sent successfully
+2024-06-26T20:43:39.981Z [digismart] info: Token verified successfully
+2024-06-26T20:43:40.063Z [digismart] info: Role verified successfully
+2024-06-26T20:44:38.826Z [digismart] info: Token verified successfully
+2024-06-26T20:44:38.873Z [digismart] info: Role verified successfully
+2024-06-26T20:45:08.981Z [digismart] info: Token verified successfully
+2024-06-26T20:45:09.029Z [digismart] info: Role verified successfully
+2024-06-26T20:46:27.060Z [digismart] info: Token verified successfully
+2024-06-26T20:46:27.104Z [digismart] info: Role verified successfully
+2024-06-26T20:46:29.837Z [digismart] info: Email sent successfully
+2024-06-26T20:53:36.735Z [digismart] info: Token verified successfully
+2024-06-26T20:53:36.778Z [digismart] info: Role verified successfully
+2024-06-26T20:54:13.243Z [digismart] info: Token verified successfully
+2024-06-26T20:54:13.293Z [digismart] info: Role verified successfully
+2024-06-26T20:54:16.907Z [digismart] info: Email sent successfully
+2024-06-26T20:55:23.508Z [digismart] info: Token verified successfully
+2024-06-26T20:55:23.576Z [digismart] info: Role verified successfully
+2024-06-26T20:55:27.158Z [digismart] info: Email sent successfully
+2024-06-26T20:56:22.411Z [digismart] info: Token verified successfully
+2024-06-26T20:56:22.461Z [digismart] info: Role verified successfully
+2024-06-26T20:56:25.400Z [digismart] info: Email sent successfully
