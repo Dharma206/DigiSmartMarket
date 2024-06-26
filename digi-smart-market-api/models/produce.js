@@ -11,10 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Produce.belongsTo(models.Laborer, {
+        foreignKey: 'laborerId'
+      })
     }
   }
   Produce.init({
-    vendorId: DataTypes.INTEGER,
     cropName: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
     amount: DataTypes.DECIMAL,

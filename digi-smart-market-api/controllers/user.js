@@ -1,6 +1,7 @@
 const models =  require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Op = require('sequelize').Op;
 
 async function register(data) {
     try {
@@ -15,9 +16,10 @@ async function register(data) {
             userName: data.userName,
             password: hashPassword,
             email: data.email,
-            role: 'User'
+            role: data.role
         })
         return {
+            userId: result.id,
             email: data.email,
             userName: data.userName
         }
@@ -32,9 +34,14 @@ async function login(data) {
         let userExists = await models.User.findOne({
             where: { email: data.email }
         })
-        if (userExists.role === 'Consultant') {
-          let response = await models.ConsultantAccesses.findOne({ where: { consultantUserId: userExists.id } });
-          userExists.dataValues.accessLevel = response.accessLevel;
+        if (userExists.role === 'MarketVendor') {
+            const marketVendorExists = await models.MarketVendor.findOne({
+                where: {
+                    userId: userExists.id,
+                    isApproved: true
+                }
+            })
+            if(!marketVendorExists) throw new Error('Need Approval from Market Admin to access the application')
         }
         if (!userExists) {
             return {
@@ -176,8 +183,12 @@ const checkRole = (roles) => {
 
 async function listUsers() {
   try {
-    const users = await models.User.findAll({ where: { role: 'User' } });
-    const result = users.map(ele => {
+    const users = await models.User.findAndCountAll({ where: {
+      role: {
+        [Op.ne]: 'Admin'
+      }
+    }});
+    const result = users.rows.map(ele => {
       return {
         ...omitPassword(ele.get())
       }

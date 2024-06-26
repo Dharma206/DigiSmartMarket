@@ -9,14 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      vendorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Vendors',
-          key: 'id'
-        }
-      },
       cropName: {
         type: Sequelize.STRING
       },
