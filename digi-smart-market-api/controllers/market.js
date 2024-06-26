@@ -5,14 +5,14 @@ async function createMarket(data, userId) {
     try {
         const userExists = await models.User.findByPk(userId);
         if(!userExists) throw new Error('User not exists');
-        const marketExists = await models.Markets.findOne({ 
+        const marketExists = await models.Market.findOne({ 
             where: { 
-                name: data.name,
+                marketName: data.marketName,
                 location: data.location
             }
         });
         if(marketExists) throw new Error('Market already exists');
-        const market = await models.Markets.create({
+        const market = await models.Market.create({
             userId: userId,
             ...data
         });
@@ -28,7 +28,7 @@ async function editMarket(marketId, data, userId) {
     try {
         const userExists = await models.User.findByPk(userId);
         if(!userExists) throw new Error('User not exists');
-        const marketExists = await models.Markets.findByPk(marketId)
+        const marketExists = await models.Market.findByPk(marketId)
         if(!marketExists) throw new Error('Market not exists');
         const market = await models.Markets.update(data, { where: { id: marketId }});
         return market

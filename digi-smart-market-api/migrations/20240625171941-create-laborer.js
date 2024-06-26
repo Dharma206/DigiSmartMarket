@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      vendorId: {
+      marketVendorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Vendors',
+          model: 'MarketVendors',
           key: 'id'
         }
       },

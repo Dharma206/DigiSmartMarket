@@ -11,10 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Laborer.belongsTo(models.MarketVendor, {
+        foreignKey: 'marketVendorId'
+      })
+      Laborer.hasMany(models.Produce, {
+        foreignKey: 'laborerId'
+      })
     }
   }
   Laborer.init({
-    vendorId: DataTypes.INTEGER,
+    marketVendorId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     details: DataTypes.STRING
   }, {
