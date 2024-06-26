@@ -1,15 +1,18 @@
+const logger = require('../helpers/logger');
 const models = require('../models');
+const sendEmailToUser = require('../helpers/sendMail')
 
-async function approveVendor(marketVendorId) {
+async function approveVendor(marketVendorId, userId) {
     try {
         const marketVendorExists = await models.MarketVendor.findByPk(marketVendorId);
         if(!marketVendorExists) throw new Error('MarketVendor Id not exists');
         const result = await models.MarketVendor.update({
             isApproved: true
         }, { where: {id: marketVendorId }});
+        await sendEmailToUser(marketVendorExists.userId)
         return result;
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -36,7 +39,7 @@ async function listApprovals(userId) {
         });
         return result;
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -96,7 +99,7 @@ async function getMarketVendors(userId) {
             response
         };
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -110,7 +113,7 @@ async function destroyMarketVendors(marketVendorId) {
             marketVendorId
         };
     } catch(error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }

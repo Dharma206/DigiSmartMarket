@@ -1,17 +1,24 @@
+const logger = require('../helpers/logger');
 const models = require('../models');
 const Op = require('sequelize').Op;
 
 async function createMarket(data, userId) {
     try {
         const userExists = await models.User.findByPk(userId);
-        if(!userExists) throw new Error('User not exists');
+        if(!userExists) {
+            logger.error('User not exists')
+            throw new Error('User not exists');
+        }
         const marketExists = await models.Market.findOne({ 
             where: { 
                 marketName: data.marketName,
                 location: data.location
             }
         });
-        if(marketExists) throw new Error('Market already exists');
+        if(marketExists) {
+            logger.error('Market already exists')
+            throw new Error('Market already exists');
+        }
         const market = await models.Market.create({
             userId: userId,
             ...data
@@ -19,7 +26,7 @@ async function createMarket(data, userId) {
         return market
 
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -27,14 +34,20 @@ async function createMarket(data, userId) {
 async function editMarket(marketId, data, userId) {
     try {
         const userExists = await models.User.findByPk(userId);
-        if(!userExists) throw new Error('User not exists');
+        if(!userExists) {
+            logger.error('User not exists')
+            throw new Error('User not exists');
+        }
         const marketExists = await models.Market.findByPk(marketId)
-        if(!marketExists) throw new Error('Market not exists');
-        const market = await models.Markets.update(data, { where: { id: marketId }});
+        if(!marketExists) {
+            logger.error('Market not exists')
+            throw new Error('Market not exists');
+        }
+        const market = await models.Market.update(data, { where: { id: marketId }});
         return market
 
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -42,14 +55,20 @@ async function editMarket(marketId, data, userId) {
 async function destroyMarket(marketId, userId) {
     try {
         const userExists = await models.User.findByPk(userId);
-        if(!userExists) throw new Error('User not exists');
-        const marketExists = await models.Markets.findByPk(marketId)
-        if(!marketExists) throw new Error('Market not exists');
-        await models.Markets.destroy({ where: { id: marketId }});
+        if(!userExists) {
+            logger.error('User not exists')
+            throw new Error('User not exists');
+        }
+        const marketExists = await models.Market.findByPk(marketId)
+        if(!marketExists) {
+            logger.error('Market not exists')
+            throw new Error('Market not exists');
+        }
+        await models.Market.destroy({ where: { id: marketId }});
         return marketId
 
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
@@ -59,14 +78,18 @@ async function listMarkets(userId) {
         let queryObj = {}
         if (userId !== undefined) {
             const userExists = await models.User.findByPk(userId);
-            if(!userExists) throw new Error('User not exists');
+            if(!userExists) {
+                logger.error('User not exists');
+                throw new Error('User not exists');
+            }
             queryObj.userId = userId
         }
-        const markets = await models.Markets.findAndCountAll({ where: queryObj });
+        console.log(queryObj)
+        const markets = await models.Market.findAndCountAll({ where: queryObj });
         return markets
 
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         throw error;
     }
 }
