@@ -1,0 +1,117 @@
+/* Global styles */
+
+body {
+    // background-color: powderblue;
+    font-family: "Poppins-Regular", sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* Dashboard layout */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.top-bar {
+    width: 100%;
+    background-color: #d4d4bc;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    height: 40px;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: auto;
+    background-color: #fff;
+}
+
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    position: relative;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    padding: 0px;
+    flex-wrap: wrap;
+    margin: 0px !important;
+}
+
+.sidebar li {
+    margin: 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 30px;
+    transition: background-color 0.3s, color 0.3s;
+    svg {
+        margin-right: 5px;
+    }
+}
+
+.sidebar li a:hover {
+    background-color: #ffddcc !important;
+    color: black;
+}
+
+.sidebar li a.active {
+    background-color: none !important;
+}
+
+.add-item-button-wrapper {
+    background-color: #4698a2;
+    color: white;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.add-item-button-wrapper:hover {
+    background-color: powderblue;
+}
+
+.navbar {
+    background-color: #f86f54 !important;
+    /* Green background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    .container {
+        justify-content: space-evenly !important;
+    }
+}
