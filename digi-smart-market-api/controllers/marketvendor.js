@@ -103,8 +103,9 @@ async function listLabourer(userId) {
             let marketId = await models.Market.findOne({
                 where: { userId }
             })
+            console.log(marketId.id)
             let marketVendorIds = await models.MarketVendor.findAll({
-                where: { marketId },
+                where: { marketId: marketId.id },
                 attributes: ['id']
             })
             marketVendorIds = marketVendorIds.map(ele => ele.id)
