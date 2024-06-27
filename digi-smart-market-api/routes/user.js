@@ -13,21 +13,14 @@ const userSchema = Joi.object({
 const registerSchema = Joi.object({
     userName: Joi.string().required(),
     email: Joi.string().email().required(),
-    role: Joi.string().valid('Admin', 'MarketAdmin', 'MarketVendor'),
+    role: Joi.string().valid('MarketAdmin', 'MarketVendor').required(),
     password: Joi.string().required(),
     confirmPassword: Joi.ref('password')
 }).with('password', 'confirmPassword');
 
 
 const updateProfileSchema = Joi.object({
-    userName: Joi.string(),
-    email: Joi.string().email(),
-    phoneNumber: Joi.string().required(),
-    dateOfBirth: Joi.string(),
-    address: Joi.string().required(),
-    country: Joi.string().required(),
-    pinCode: Joi.number().required(),
-    role: Joi.string().valid('Admin', 'MarketAdmin', 'MarketVendor')
+    userName: Joi.string().required()
 });
 
 const resetPasswordSchema = Joi.object({

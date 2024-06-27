@@ -13,9 +13,9 @@ router.put('/profile', validateToken, updateProfile);
 router.post('/reset-password', resetPassword);
 
 router.post('/market', validateToken, checkRole(['MarketAdmin']), addMarket);
-// router.put('/market/:id', validateToken, checkRole(['MarketAdmin']), updateMarket);
-// router.delete('/market/:id', validateToken, checkRole(['MarketAdmin']), deleteMarket);
-router.get('/market', validateToken, getMarkets);
+router.put('/market/:id', validateToken, checkRole(['MarketAdmin']), updateMarket);
+router.delete('/market/:id', validateToken, checkRole(['MarketAdmin']), deleteMarket);
+router.get('/market', getMarkets);
 
 router.post('/request-access', requestAccess);
 router.put('/vendor-approval/:id', validateToken, checkRole(['MarketAdmin']), vendorApproval)
@@ -27,9 +27,9 @@ router.delete('/market-vendors/:id', validateToken, checkRole(['MarketAdmin']), 
 
 router.post('/labourer', validateToken, checkRole(['MarketVendor']), addLabourer);
 router.get('/labourer', validateToken, getLabourers);
-router.delete('/labourer/:id', validateToken, checkRole(['MarketVendor']), deleteLabourer)
+router.delete('/labourer/:id', validateToken, checkRole(['MarketVendor']), deleteLabourer);
 
-router.get('/users', validateToken, checkRole(['MarketAdmin']), userListing);
+router.get('/users', validateToken, checkRole(['Admin']), userListing);
 
 
 module.exports = router;

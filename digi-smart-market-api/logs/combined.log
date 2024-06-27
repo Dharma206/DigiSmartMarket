@@ -41,3 +41,27 @@
 2024-06-26T20:56:22.411Z [digismart] info: Token verified successfully
 2024-06-26T20:56:22.461Z [digismart] info: Role verified successfully
 2024-06-26T20:56:25.400Z [digismart] info: Email sent successfully
+2024-06-27T07:08:40.603Z [digismart] info: Token verified successfully
+2024-06-27T07:08:40.706Z [digismart] info: Role verified successfully
+2024-06-27T07:08:40.722Z [digismart] info: Returned user details without password
+2024-06-27T07:08:40.723Z [digismart] info: Returned user details without password
+2024-06-27T07:08:40.723Z [digismart] info: Returned user details without password
+2024-06-27T07:08:40.723Z [digismart] info: Users fetched successfully
+2024-06-27T16:28:45.997Z [digismart] info: Login successful
+2024-06-27T16:28:46.007Z [digismart] info: Returned user details without password
+2024-06-27T16:29:07.981Z [digismart] info: Token verified successfully
+2024-06-27T16:29:08.011Z [digismart] info: Role verified successfully
+2024-06-27T16:29:11.797Z [digismart] info: Token verified successfully
+2024-06-27T16:29:11.824Z [digismart] info: Role of the user in listLabourer is MarketVendor 
+2024-06-27T16:29:12.026Z [digismart] info: Query fetching done in listLabourer
+2024-06-27T16:30:12.489Z [digismart] info: Login successful
+2024-06-27T16:30:12.489Z [digismart] info: Returned user details without password
+2024-06-27T16:30:26.407Z [digismart] info: Token verified successfully
+2024-06-27T16:30:26.545Z [digismart] info: Role of the user in listLabourer is MarketAdmin 
+2024-06-27T16:30:26.558Z [digismart] error: invalid input syntax for type integer: "[object SequelizeInstance:Market]"
+2024-06-27T16:31:55.437Z [digismart] info: Token verified successfully
+2024-06-27T16:31:55.496Z [digismart] info: Role of the user in listLabourer is MarketAdmin 
+2024-06-27T16:31:55.513Z [digismart] error: invalid input syntax for type integer: "[object SequelizeInstance:Market]"
+2024-06-27T16:32:18.582Z [digismart] info: Token verified successfully
+2024-06-27T16:32:18.618Z [digismart] info: Role of the user in listLabourer is MarketAdmin 
+2024-06-27T16:32:18.676Z [digismart] info: Query fetching done in listLabourer
