@@ -6,13 +6,13 @@ import {
   putRestPassword,
 } from "../../serviceApis/loginapi";
 import { useAuth } from "../../context/AuthProvider";
-import {  NavLink, Navigate, Route, Routes } from "react-router-dom";
+import {  Link, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import {
   Navbar,
   Nav,
   Container,
 } from "react-bootstrap";
-import {  FaEnvelope, FaRegArrowAltCircleRight, FaRegUserCircle, FaThLarge, FaStore } from "react-icons/fa"; // Import icons
+import {  FaEnvelope, FaRegArrowAltCircleRight, FaRegUserCircle, FaThLarge, FaStore, FaHardHat } from "react-icons/fa"; // Import icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./dashboard.scss";
 import FarmNotesLogo from "../../assets/logoDigi.png"; // Adjust the path as needed
@@ -28,6 +28,7 @@ import VendorRouter from "../../routes/VendorRoute";
 import MarketLabourerDash from "../MarketLabourerDash";
 import AdminDashboard from "../AdminDashboard";
 import AdminRoute from "../../routes/AdminRoute";
+import AdminLabourer from "../AdminLabourer";
 
 const Dashboard = () => {
   const { logout } = useAuth();
@@ -143,18 +144,18 @@ const Dashboard = () => {
                   <FaEnvelope className="sidebar-icon" /> Requests
                 </NavLink>
               </li></> }
-{/* 
-              {userProfile?.role==='MarketVendor'&&<>
-                <li>
-                <NavLink
-                 onClick={handleModalShow}
 
+              {userProfile?.role==='Admin'&&<>
+                <li>
+                <Link
+
+                to='labourer'
                   className="sidebar-link"
                 >
-                  <FaStore  className="sidebar-icon" /> Add Labourer
-                </NavLink>
+                  <FaHardHat  className="sidebar-icon" /> Labourer's
+                </Link>
               </li>
-              </>} */}
+              </>}
 
             </ul>
           </div>
@@ -186,6 +187,7 @@ const Dashboard = () => {
   { showModal&&   <AddItemModal
         show={showModal}
         handleClose={handleModalClose}
+        userProfile={userProfile}
       />}
 
       {vendorRequestModal&&<VendorRequestModal show={vendorRequestModal} handleClose={()=>{setVendorModal(false)}}/>}
@@ -205,9 +207,12 @@ const Dashboard = () => {
         <div className="content">
           <Routes>
             <Route index element={<Navigate to="items" />} />
-          {userProfile?.role==='MarketAdmin'&&  <Route path='items' element={<MarketAdminRoute><ItemList vendorRequestModal={vendorRequestModal} /></MarketAdminRoute>} />}
+          {userProfile?.role==='MarketAdmin'&&  <Route path='items' element={<MarketAdminRoute><ItemList vendorRequestModal={showModal} /></MarketAdminRoute>} />}
            {userProfile?.role==='MarketVendor'&& <Route path='items'  element={<VendorRouter><MarketLabourerDash/></VendorRouter>}/>}
-           {userProfile?.role==='Admin'&& <Route path='items'  element={<AdminRoute><AdminDashboard/></AdminRoute>}/>}
+           {userProfile?.role==='Admin'&&<>
+           <Route path='items'  element={<AdminRoute><AdminDashboard/></AdminRoute>}/>
+            </>}
+            <Route path='labourer'  element={<AdminRoute><AdminLabourer/></AdminRoute>}/>
 
           </Routes>
         </div>

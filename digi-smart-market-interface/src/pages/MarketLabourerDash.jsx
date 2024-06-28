@@ -45,7 +45,7 @@ const MarketLabourerDash = () => {
   const handleGetLabourer = async () => {
     try {
       const userData = await getLabours();
-      setMarketVendors(userData?.response);
+      setMarketVendors(userData?.response||[]);
       console.log("userData->", userData);
     } catch (error) {
       console.error("Error fetching user data:", error);
