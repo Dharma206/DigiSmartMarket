@@ -18,8 +18,8 @@ router.delete('/market/:id', validateToken, checkRole(['MarketAdmin']), deleteMa
 router.get('/market', getMarkets);
 
 router.post('/request-access', requestAccess);
-router.put('/vendor-approval/:id', validateToken, checkRole(['MarketAdmin']), vendorApproval)
-router.get('/vendor-approval', validateToken, checkRole(['MarketAdmin']), getApprovals)
+router.put('/vendor-approval/:id', validateToken, checkRole(['MarketAdmin']), vendorApproval);
+router.get('/vendor-approval', validateToken, checkRole(['MarketAdmin']), getApprovals);
 
 // API to list all market vendors
 router.get('/market-vendors', validateToken, checkRole(['MarketAdmin', 'Admin']), listMarketVendors);

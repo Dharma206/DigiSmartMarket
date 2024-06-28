@@ -64,6 +64,21 @@ async function destroyMarket(marketId, userId) {
             logger.error('Market not exists')
             throw new Error('Market not exists');
         }
+        let marketVendorExists = await models.MarketVendor.findAll({ where: {marketId: marketExists.id }})
+        marketVendorExists = marketVendorExists.map(ele => ele.id)
+        let laborerExists = await models.Laborer.findAll({ where: { marketVendorId: {
+            [Op.in]: marketVendorExists
+        } } })
+        laborerExists = laborerExists.map(ele => ele.id)
+        await models.Produce.destroy({ where: { laborerId: {
+            [Op.in]: laborerExists
+        }}})
+        await models.Laborer.destroy({ where: { marketVendorId: {
+            [Op.in]: marketVendorExists
+        } } })
+        await models.MarketVendor.destroy({ where: { id: {
+            [Op.in]: marketVendorExists
+        } } });
         await models.Market.destroy({ where: { id: marketId }});
         return marketId
 

@@ -145,28 +145,32 @@ async function listLabourer(userId) {
             ]
         });
         logger.info('Query fetching done in listLabourer')
-        let response = result.rows.map(ele => {
-            return ({
-                id: ele.id,
-                marketVendorId: ele.marketVendorId,
-                name: ele.name,
-                details: ele.details,
-                createdAt: ele.createdAt,
-                updatedAt: ele.updatedAt,
-                marketAdmin: ele.MarketVendor.Market.marketAdmin,
-                market: {
-                    id: ele.MarketVendor.Market.id,
-                    marketName: ele.MarketVendor.Market.marketName,
-                    location: ele.MarketVendor.Market.location,
-                },
-                marketVendor: {
-                    id: ele.MarketVendor.marketVendor.id,
-                    userName: ele.MarketVendor.marketVendor.userName,
-                    email: ele.MarketVendor.marketVendor.email
-                },
-                produce: ele.Produces
+        let response;
+        if (result.count > 0) {
+            response = result.rows.map(ele => {
+                return ({
+                    id: ele.id,
+                    marketVendorId: ele.marketVendorId,
+                    name: ele.name,
+                    details: ele.details,
+                    createdAt: ele.createdAt,
+                    updatedAt: ele.updatedAt,
+                    marketAdmin: ele.MarketVendor.Market.marketAdmin,
+                    market: {
+                        id: ele.MarketVendor.Market.id,
+                        marketName: ele.MarketVendor.Market.marketName,
+                        location: ele.MarketVendor.Market.location,
+                    },
+                    marketVendor: {
+                        id: ele.MarketVendor.marketVendor.id,
+                        userName: ele.MarketVendor.marketVendor.userName,
+                        email: ele.MarketVendor.marketVendor.email
+                    },
+                    produce: ele.Produces
+                })
             })
-        })
+        }
+        
         return {
             count: result.count,
             response
