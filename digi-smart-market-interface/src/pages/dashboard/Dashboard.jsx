@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  getMarketVendor,
   getProfile,
   putEditProfile,
-  putRestPassword,
 } from "../../serviceApis/loginapi";
 import { useAuth } from "../../context/AuthProvider";
 import {  Link, NavLink, Navigate, Route, Routes } from "react-router-dom";
@@ -19,7 +17,6 @@ import FarmNotesLogo from "../../assets/logoDigi.png"; // Adjust the path as nee
 import ItemList from "../../components/markets/MarketListing";
 // Adjust the path as needed
 import EditProfileModal from "../../components/edit-profile.modal";
-import ResetPasswordModal from "../../components/reset-password";
 import AddItemModal from "../../components/add-market-modal/add-market-modal";
 import VendorRequestModal from "../../components/vendor/VendorRequestModal";
 import { toast } from "react-toastify";
@@ -35,23 +32,19 @@ const Dashboard = () => {
   const user = localStorage.getItem("user");
   const userProfile = user ? JSON.parse(user) : null;
 
-  const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [showSecurityModal, setShowSecurityModal] = useState(false);
   const [profile, setProfile] = useState(null);
   const [vendorRequestModal,setVendorModal]=useState(false)
 
-  const handleOffcanvasClose = () => setShowOffcanvas(false);
-  const handleOffcanvasShow = () => setShowOffcanvas(true);
+
 
   const handleModalClose = () => setShowModal(false);
   const handleModalShow = () => setShowModal(true);
 
   const handleProfileModalClose = () => setShowProfileModal(false);
   const handleProfileModalShow = () => setShowProfileModal(true);
-  const handleSecurityModalClose = () => setShowSecurityModal(false);
-  const handleSecurityModalShow = () => setShowSecurityModal(true);
+
 
   const handleProfile = async () => {
     try {
@@ -71,7 +64,7 @@ const Dashboard = () => {
   const handleSaveProfile = async (profileData) => {
     try {
       const response = await putEditProfile({
-        userName: profileData.userName, // Corrected typo here
+        userName: profileData.userName,
         phoneNumber: profileData.phoneNumber,
         dateOfBirth: profileData.dateOfBirth,
         address: profileData.address,
@@ -83,21 +76,6 @@ const Dashboard = () => {
       await handleProfile(); 
       toast.success('Saved successfully ')
       setShowProfileModal(false);
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
-  };
-  const handleRestPassword = async (profileData) => {
-    try {
-      const response = await putRestPassword({
-        email: profile?.email,
-        password: profileData?.password,
-        confirmPassword: profileData?.confirmPassword,
-      });
-      console.log(response);
-      handleOffcanvasClose();
-      await handleProfile();
-      setShowSecurityModal(false);
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -197,12 +175,6 @@ const Dashboard = () => {
         profile={profile}
         handleSave={handleSaveProfile}
       />}
-      <ResetPasswordModal
-        show={showSecurityModal}
-        handleClose={handleSecurityModalClose}
-        profile={profile}
-        handleSave={handleRestPassword}
-      />
       <div className="main-content">
         <div className="content">
           <Routes>
