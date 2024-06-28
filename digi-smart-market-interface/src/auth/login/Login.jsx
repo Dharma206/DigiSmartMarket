@@ -7,8 +7,6 @@ const Login = () => {
   const fetchUserData = async () => {
     try {
       const userData = await postLogin();
-      //   setUser(userData);
-      console.log("user->", userData);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
