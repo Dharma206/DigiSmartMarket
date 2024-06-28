@@ -36,6 +36,10 @@ async function login(data) {
         let userExists = await models.User.findOne({
             where: { email: data.email }
         })
+        if(!userExists) {
+          logger.error('User not exists to login');
+          throw new Error('User not exists');
+        }
         if (userExists.role === 'MarketVendor') {
             const marketVendorExists = await models.MarketVendor.findOne({
                 where: {

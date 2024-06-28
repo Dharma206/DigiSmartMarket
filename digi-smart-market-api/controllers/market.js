@@ -4,6 +4,7 @@ const Op = require('sequelize').Op;
 
 async function createMarket(data, userId) {
     try {
+        console.log(userId)
         const userExists = await models.User.findByPk(userId);
         if(!userExists) {
             logger.error('User not exists')

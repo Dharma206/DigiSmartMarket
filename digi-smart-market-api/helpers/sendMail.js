@@ -15,8 +15,12 @@ const sendEmailToUser = async (toUserId) => {
     const mailOptions = {
       from: 'digismart800@gmail.com',
       to: toUser.email,
-      subject: 'Email from DigiSmart - Access approval',
-      text: `Hello ${toUser.userName}, I would like to confirm you that your request for DigiSmart Market Admin is accepted successfully. Please consider the approval. Thank you`
+      subject: 'DigiSmartMarket Vendor Access - Approved !',
+      text: `Hello ${toUser.userName}, 
+
+We would like to confirm that your request for DigiSmart Market Vendor is Approved !.
+Good to see your operations being digitized with DigiSmartSolutions !
+Thank you`
     };
 
     // Send email

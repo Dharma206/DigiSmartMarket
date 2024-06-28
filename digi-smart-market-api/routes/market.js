@@ -8,6 +8,7 @@ const addMarketSchema = Joi.object({
 
 async function addMarket(req, res) {
     try {
+        console.log(req.userId);
         const data = req.body;
         const { error, value } = addMarketSchema.validate(data);
         if (error) {
