@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {  Button, Container } from "react-bootstrap";
+import {   Button, Container } from "react-bootstrap";
 import DeleteModal from "../components/farm-items-display/farm-items-delete-modal";
 import EditModal from "../components/farm-items-display/farm-items-edit-modal";
 // import { getMarketVendor } from "../../serviceApis/loginapi";
-import { Table } from "reactstrap";
+import { Badge, Table } from "reactstrap";
 import '../components/farm-items-display/farm-items-display.scss'
 import { deleteLabour, getLabours, getMarketVendor, getUsers } from "../serviceApis/loginapi";
 import AddLabourerModal from "../components/add-market-modal/AddLabourerModal";
@@ -21,26 +21,6 @@ const AdminDashboard = () => {
     setShowDeleteModal(true);
   };
 
-//   const handleCloseDeleteModal = () => {
-//     setShowDeleteModal(false);
-//     setSelectedItem(null);
-//   };
-
-//   const handleCloseEditModal = () => {
-//     setShowEditModal(false);
-//     setSelectedItem(null);
-//   };
-
-//   const handleConfirmDelete = async () => {
-//     try {
-//       await deleteLabour(selectedItem.id);
-//       toast.success('Deleted succussfully') 
-//       handleGetLabourer(); 
-//       handleCloseDeleteModal();
-//     } catch (error) {
-//       console.error("Error deleting item:", error);
-//     }
-//   };
 
   const handlefetchUsers = async () => {
     try {
@@ -68,7 +48,7 @@ const AdminDashboard = () => {
             <th>User Name </th>
             <th>Email </th>
               <th>Role </th>
-              <th>Actions</th>
+
 
             </tr>
           </thead>
@@ -84,18 +64,11 @@ const AdminDashboard = () => {
                 <tr key={item?.id}>
                   <td>{item?.userName}</td>
                   <td>{item?.email}</td>
-                  <td>{item?.role}</td>
-                  <td>
-               
-                    <span
-
-                      onClick={() => handleDeleteClick(item)}
-                      className="action-button"
-                      style={{ color: "red" ,cursor:'pointer'}}
-                    >
-                      Delete
-                    </span>
-                  </td>
+                  <td><Badge pill color={item?.role==='MarketAdmin'?"success":"info"}>
+                  {item?.role}
+                    </Badge>
+                    </td>
+           
                 </tr>
               ))
             )}

@@ -68,7 +68,7 @@ const VendorRequestModal = ({ show, handleClose }) => {
             ) : (
               vendorRequests?.map((item) => (
                 <tr key={item?.id}>
-                  <td>{item?.marketName||'-'}</td>
+                  <td>{item?.Market?.marketName||'-'}</td>
                   <td>{item?.marketVendor?.userName||'-'}</td>
                   <td>{item?.marketVendor?.email||'-'}</td>
                
@@ -76,7 +76,7 @@ const VendorRequestModal = ({ show, handleClose }) => {
                   <td>
                   <span
                       variant="link"
-                      onClick={() => handleApproveReject(item?.marketVendor?.userId||item?.marketId)}
+                      onClick={() => handleApproveReject(item?.id)}
                       style={{ color: "#2ba1af" ,cursor:'pointer',marginRight:'5px'}}
                     >
                       Approve

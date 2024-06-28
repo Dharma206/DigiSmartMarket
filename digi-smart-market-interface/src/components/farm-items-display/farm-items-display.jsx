@@ -6,7 +6,7 @@ import "./farm-items-display.scss";
 import { getMarketVendor } from "../../serviceApis/loginapi";
 import { Table } from "reactstrap";
 
-const ItemList = ({ id ,data,vendorRequestModal}) => {
+const ItemList = ({ vendorRequestModal}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -30,7 +30,7 @@ const ItemList = ({ id ,data,vendorRequestModal}) => {
   const handleMarketVendord = async () => {
     try {
       const userData = await getMarketVendor();
-      setMarketVendors(userData?.response);
+      setMarketVendors(userData?.response ||[]);
 
       console.log("userData->", userData);
     } catch (error) {
@@ -42,6 +42,7 @@ const ItemList = ({ id ,data,vendorRequestModal}) => {
 
     handleMarketVendord();
   }, [vendorRequestModal]);
+  console.log("vendor->",vendorRequestModal)
 
   return (
     <Container className="item-list">

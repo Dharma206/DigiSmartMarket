@@ -5,7 +5,7 @@ import "./add-market-modal.scss";
 import { toast } from "react-toastify";
 import { Table } from "reactstrap";
 
-const AddItemModal = ({ show, handleClose }) => {
+const AddItemModal = ({ show, handleClose ,userProfile}) => {
 
   const [errors, setErrors] = useState({});
   const [marketsData,setMarketsData]=useState([])
@@ -13,7 +13,7 @@ const AddItemModal = ({ show, handleClose }) => {
 
   const handleMarkets = async () => {
     try {
-      const userData = await getMarkets();
+      const userData = await getMarkets(userProfile?.id);
       setMarketsData(userData?.rows);
       console.log("userData->", userData);
     } catch (error) {
@@ -28,7 +28,7 @@ const AddItemModal = ({ show, handleClose }) => {
   const validate = () => {
     const newErrors = {};
     if (!form?.marketName) newErrors.name = "Marker Name is required";
-    if (!form?.location) newErrors.category = "Location is required";
+    if (!form?.location) newErrors.location = "Location is required";
     return newErrors;
   };
 
@@ -91,7 +91,7 @@ const AddItemModal = ({ show, handleClose }) => {
                 className={`form-control ${errors.name ? "is-invalid" : ""}`}
                 required
               />
-              {errors?.marketName && <div className="text-danger">{errors.marketName}</div>}
+              {errors?.name && <div className="text-danger">{errors.name}</div>}
             </Form.Group>
             <Form.Group controlId="itemCode" className="form-group half-width">
               <Form.Label>Location</Form.Label>
@@ -102,7 +102,7 @@ const AddItemModal = ({ show, handleClose }) => {
                 name='location'
                 onChange={handleInputChange}
                 className={`form-control ${
-                  errors.itemCode ? "is-invalid" : ""
+                  errors.location ? "is-invalid" : ""
                 }`}
                 required
               />

@@ -24,7 +24,7 @@ const Login = () => {
       localStorage.setItem("authToken", userData.token);
       localStorage.setItem("user", JSON.stringify(userData));
       login();
-      toast.success('Created account succesfully');
+      toast.success('Login succesfully');
       navigate("/dashboard");
     } catch (error) {
       console.log("error->",error)
