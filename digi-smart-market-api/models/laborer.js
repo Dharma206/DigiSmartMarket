@@ -22,7 +22,9 @@ module.exports = (sequelize, DataTypes) => {
   Laborer.init({
     marketVendorId: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    details: DataTypes.STRING
+    details: DataTypes.STRING,
+    code: DataTypes.STRING,
+    phoneNumber: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Laborer',
