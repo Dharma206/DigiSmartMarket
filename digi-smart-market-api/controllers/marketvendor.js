@@ -66,16 +66,9 @@ async function createLabourer(data, userId) {
             details: data.details
         })
         logger.info('Laborer created successfully')
-        const produce = await models.Produce.create({
-            cropName: data.cropName,
-            quantity: data.quantity,
-            amount: data.amount,
-            laborerId: laborer.id
-        })
-        logger.info('Produce created successfully')
+
         return {
-            laborer,
-            produce
+            laborer
         };
     } catch (error) {
         logger.error(error);
@@ -138,9 +131,6 @@ async function listLabourer(userId) {
                             ]
                         }
                     ]
-                },
-                {
-                    model: models.Produce
                 }
             ]
         });
@@ -165,8 +155,7 @@ async function listLabourer(userId) {
                         id: ele.MarketVendor.marketVendor.id,
                         userName: ele.MarketVendor.marketVendor.userName,
                         email: ele.MarketVendor.marketVendor.email
-                    },
-                    produce: ele.Produces
+                    }
                 })
             })
         }
@@ -198,9 +187,31 @@ async function destroyLabourer(labourerId) {
     }
 }
 
+async function updateLabourer(laborerId, data, userId) {
+    try {
+        const userExists = await models.User.findByPk(userId);
+        if(!userExists) {
+            logger.error('User not exists')
+            throw new Error('User not exists');
+        }
+        const laborerExists = await models.Laborer.findByPk(laborerId)
+        if(!laborerExists) {
+            logger.error('Laborer not exists')
+            throw new Error('Laborer not exists');
+        }
+        const laborer = await models.Laborer.update(data, { where: { id: laborerId }});
+        return laborer
+
+    } catch (error) {
+        logger.error(error);
+        throw error;
+    }
+}
+
 module.exports = {
     createMarketVendor,
     createLabourer,
     listLabourer,
-    destroyLabourer
+    destroyLabourer,
+    updateLabourer
 }
