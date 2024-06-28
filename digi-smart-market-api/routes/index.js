@@ -3,8 +3,9 @@ const router = express.Router();
 const { registerUser, loginUser, getProfile, updateProfile, resetPassword, userListing } = require('./user');
 const { validateToken, checkRole } = require('../controllers/user');
 const { addMarket, updateMarket, deleteMarket, getMarkets } = require('./market');
-const { requestAccess, addLabourer, getLabourers, deleteLabourer } = require('./marketvendor');
+const { requestAccess, addLabourer, getLabourers, deleteLabourer, editLabourer } = require('./marketvendor');
 const { vendorApproval, getApprovals, listMarketVendors, deleteMarketVendors } = require('./marketadmin');
+const { addProduce, getProduce, deleteProduce, editProduce } = require('./produce');
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
@@ -28,6 +29,12 @@ router.delete('/market-vendors/:id', validateToken, checkRole(['MarketAdmin']), 
 router.post('/labourer', validateToken, checkRole(['MarketVendor']), addLabourer);
 router.get('/labourer', validateToken, getLabourers);
 router.delete('/labourer/:id', validateToken, checkRole(['MarketVendor']), deleteLabourer);
+router.put('/labourer/:id', validateToken, checkRole(['MarketVendor']), editLabourer);
+
+router.post('/produce', validateToken, checkRole(['MarketVendor']), addProduce);
+router.get('/produce', validateToken, getProduce);
+router.delete('/produce/:id', validateToken, checkRole(['MarketVendor']), deleteProduce);
+router.put('/produce/:id', validateToken, checkRole(['MarketVendor']), editProduce);
 
 router.get('/users', validateToken, checkRole(['Admin']), userListing);
 
