@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     cropName: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
     amount: DataTypes.DECIMAL,
+    details: DataTypes.STRING,
     laborerId: DataTypes.INTEGER
   }, {
     sequelize,
