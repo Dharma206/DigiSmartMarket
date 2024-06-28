@@ -1,5 +1,11 @@
 // src/services/userService.js
+import { toast } from "react-toastify";
 import axiosInstance from "./axiosInstance";
+
+const handleError=(error)=>{
+  toast.error(error?.response?.data?.messsage||error?.response?.data?.error||error?.message || error?.error?.error ||'Something went wrong');
+
+}
 
 export const postLogin = async (data) => {
   try {
@@ -16,6 +22,7 @@ export const signUp = async (data) => {
     const response = await axiosInstance.post("/register", data);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -26,6 +33,7 @@ export const requestAccess = async (data) => {
     const response = await axiosInstance.post("/request-access", data);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error fetching user data:", error);
     throw error;
   }
@@ -36,6 +44,7 @@ export const changeRequestAcces = async (id, data) => {
     const response = await axiosInstance.put(`/vendor-approval/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error editing item:", error);
     throw error;
   }
@@ -88,15 +97,16 @@ export const deleteLabour = async (id) => {
     const response = await axiosInstance.delete(`/labourer/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error fetching user data:", error);
     throw error;
   }
 };
 
 
-export const getMarkets = async () => {
+export const getMarkets = async (id) => {
   try {
-    const response = await axiosInstance.get("/market");
+    const response = await axiosInstance.get(`/market${id?`?userId=${id}`:''}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -120,6 +130,7 @@ export const deleteMarket = async (id) => {
     const response = await axiosInstance.delete(`/market/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error editing item:", error);
     throw error;
   }
@@ -130,6 +141,7 @@ export const deleteVendor = async (id) => {
     const response = await axiosInstance.delete(`/market-vendors/${id}`);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error editing item:", error);
     throw error;
   }
@@ -140,6 +152,7 @@ export const addLabourer= async (data) => {
     const response = await axiosInstance.post("/labourer", data);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error fetching user data:", error);
     throw error;
   }
