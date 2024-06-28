@@ -13,7 +13,7 @@ const VendorRequestModal = ({ show, handleClose }) => {
   const handleMarkets = async () => {
     try {
       const userData = await getVendorRequest();
-      setVendorRequests(userData?.rows);
+      setVendorRequests(userData?.rows||[]);
       console.log("userData->", userData);
     } catch (error) {
       console.error("Error fetching user data:", error);

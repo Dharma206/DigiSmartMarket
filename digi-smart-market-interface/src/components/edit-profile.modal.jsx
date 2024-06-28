@@ -2,20 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "./add-market-modal/add-market-modal.scss";
 
-const formatDateToInput = (dateString) => {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
-
 const EditProfileModal = ({ show, handleClose, profile, handleSave }) => {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
- 
     role: "",
   });
 

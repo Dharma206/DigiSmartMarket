@@ -3,7 +3,7 @@ import { postLogin } from "../../serviceApis/loginapi";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
-import logo from "../../assets/FarmNotes.png";
+import logo from "../../assets/logo.png";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -36,7 +36,8 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="log-form">
-        {/* <img src={logo} alt="Logo" className="logo" /> */}
+        <img src={logo} alt="Logo" className="logo" />
+
         <h4>Sign In </h4>
         <form>
           <input

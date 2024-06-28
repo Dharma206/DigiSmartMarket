@@ -16,7 +16,7 @@ import {  FaEnvelope, FaRegArrowAltCircleRight, FaRegUserCircle, FaThLarge, FaSt
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./dashboard.scss";
 import FarmNotesLogo from "../../assets/logoDigi.png"; // Adjust the path as needed
-import ItemList from "../../components/farm-items-display/farm-items-display";
+import ItemList from "../../components/markets/MarketListing";
 // Adjust the path as needed
 import EditProfileModal from "../../components/edit-profile.modal";
 import ResetPasswordModal from "../../components/reset-password";
@@ -207,7 +207,7 @@ const Dashboard = () => {
         <div className="content">
           <Routes>
             <Route index element={<Navigate to="items" />} />
-          {userProfile?.role==='MarketAdmin'&&  <Route path='items' element={<MarketAdminRoute><ItemList vendorRequestModal={showModal} /></MarketAdminRoute>} />}
+          {userProfile?.role==='MarketAdmin'&&  <Route path='items' element={<MarketAdminRoute><ItemList showModal={showModal} vendorRequestModal={vendorRequestModal}/></MarketAdminRoute>} />}
            {userProfile?.role==='MarketVendor'&& <Route path='items'  element={<VendorRouter><MarketLabourerDash/></VendorRouter>}/>}
            {userProfile?.role==='Admin'&&<>
            <Route path='items'  element={<AdminRoute><AdminDashboard/></AdminRoute>}/>

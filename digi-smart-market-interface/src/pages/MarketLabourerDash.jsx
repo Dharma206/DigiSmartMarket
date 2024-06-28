@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {  Button, Container } from "react-bootstrap";
-import DeleteModal from "../components/farm-items-display/farm-items-delete-modal";
-import EditModal from "../components/farm-items-display/farm-items-edit-modal";
+import DeleteModal from "../components/markets/MarketDeleteModal";
+import EditModal from "../components/markets/MarketEditModal";
 // import { getMarketVendor } from "../../serviceApis/loginapi";
 import { Table } from "reactstrap";
-import '../components/farm-items-display/farm-items-display.scss'
+import '../components/markets/marketListing.scss'
 import { deleteLabour, getLabours, getMarketVendor } from "../serviceApis/loginapi";
 import AddLabourerModal from "../components/add-market-modal/AddLabourerModal";
 import { toast } from "react-toastify";
@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 const MarketLabourerDash = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
   const [marketVendors,setMarketVendors]=useState([])
   const [labourerModal,setLabourerModal]=useState(false)
 
@@ -23,11 +22,6 @@ const MarketLabourerDash = () => {
 
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
-    setSelectedItem(null);
-  };
-
-  const handleCloseEditModal = () => {
-    setShowEditModal(false);
     setSelectedItem(null);
   };
 
@@ -125,13 +119,6 @@ Add Labourer
         selectedItem={selectedItem}
         handleDelete={handleConfirmDelete}
       />} 
-{/* {showEditModal&&
-      <EditModal
-        show={showEditModal}
-        handleClose={handleCloseEditModal}
-        selectedItem={selectedItem}
-        fetchItems={handleMarketVendord}
-      />} */}
 
       {labourerModal&&<AddLabourerModal show={labourerModal} handleClose={()=>{setLabourerModal(false)}} handleGetLabourer={handleGetLabourer}/>}
     </Container>

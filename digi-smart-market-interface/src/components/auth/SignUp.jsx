@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getMarkets, requestAccess, signUp } from "../../serviceApis/loginapi";
 import { toast } from "react-toastify";
 import { Form } from "react-bootstrap";
+import logo from "../../assets/logo.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -81,7 +82,8 @@ const SignUp = () => {
   return (
     <div className="auth-container">
       <div className="log-form">
-        <h2>Create an account</h2>
+      <img src={logo} alt="Logo" className="logo" />
+        <h4>Create an account</h4>
         <form>
           <input
             type="text"

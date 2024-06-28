@@ -69,7 +69,7 @@ export const getMarketVendor = async () => {
     throw error;
   }
 };
-export const getCategories={}
+
 
 export const getLabours = async () => {
   try {
@@ -159,58 +159,24 @@ export const addLabourer= async (data) => {
 
 };
 
-
-
-
-
-
-
-
 export const createMerket = async (data) => {
   try {
     const response = await axiosInstance.post("/market", data);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error fetching user data:", error);
     throw error;
   }
 };
-export const getFarmItems = async (id) => {
-  try {
-    const response = await axiosInstance.get("/farmItems", {
-      params: id,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching farm items:", error);
-    throw error;
-  }
-};
-export const getFarmItemActivities = async (id) => {
-  try {
-    const response = await axiosInstance.get("/farmItemActivities", {
-      params: id,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching farm items:", error);
-    throw error;
-  }
-};
-export const putEditItem = async (id, data) => {
-  try {
-    const response = await axiosInstance.put(`/farmItems/${id}`, data);
-    return response.data;
-  } catch (error) {
-    console.error("Error editing item:", error);
-    throw error;
-  }
-};
+
+
 export const putEditProfile = async (data) => {
   try {
     const response = await axiosInstance.put("/profile", data);
     return response.data;
   } catch (error) {
+    handleError(error)
     console.error("Error editing item:", error);
     throw error;
   }
@@ -218,43 +184,6 @@ export const putEditProfile = async (data) => {
 export const putRestPassword = async (data) => {
   try {
     const response = await axiosInstance.post("/reset-password", data);
-    return response.data;
-  } catch (error) {
-    console.error("Error editing item:", error);
-    throw error;
-  }
-};
-
-export const deleteFarmItem = async (id) => {
-  try {
-    const response = await axiosInstance.delete(`/farmItems/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error editing item:", error);
-    throw error;
-  }
-};
-export const postAddFarmActivity = async (data) => {
-  try {
-    const response = await axiosInstance.post("/farmItemActivities", data);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
-  }
-};
-export const putEditFarmActivity = async (id, data) => {
-  try {
-    const response = await axiosInstance.put(`/farmItemActivities/${id}`, data);
-    return response.data;
-  } catch (error) {
-    console.error("Error editing item:", error);
-    throw error;
-  }
-};
-export const deleteFarmActivity = async (id) => {
-  try {
-    const response = await axiosInstance.delete(`/farmItemActivities/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error editing item:", error);

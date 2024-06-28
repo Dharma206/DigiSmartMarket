@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {  Container } from "react-bootstrap";
-
-
-import { Badge, Table } from "reactstrap";
-import '../components/farm-items-display/farm-items-display.scss'
+import {  Table } from "reactstrap";
+import '../components/markets/marketListing.scss'
 import { getLabours } from "../serviceApis/loginapi";
 
 

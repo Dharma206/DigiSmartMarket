@@ -13,7 +13,6 @@ import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 import Dashboard from "./pages/dashboard/Dashboard";
 import axiosInstance from "./serviceApis/axiosInstance";
-import { toast } from "react-toastify";
 import { ColorRing } from "react-loader-spinner";
 
 
@@ -40,7 +39,6 @@ const App = () => {
     });
   },[])
 
-  console.log("loader->",loading)
 
   return (
     <AuthProvider>

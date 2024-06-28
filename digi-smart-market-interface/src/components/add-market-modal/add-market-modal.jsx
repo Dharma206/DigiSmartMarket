@@ -75,7 +75,7 @@ const AddItemModal = ({ show, handleClose ,userProfile}) => {
     <div className="custom-modal-wrapper">
     <Modal show={show} size="lg" onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title><span >Add Item</span></Modal.Title>
+        <Modal.Title><span >Market</span></Modal.Title>
       </Modal.Header>
       <Modal.Body className="modal-body">
         <Form>

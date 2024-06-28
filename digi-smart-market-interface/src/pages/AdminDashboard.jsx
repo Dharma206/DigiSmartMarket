@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {   Button, Container } from "react-bootstrap";
-import DeleteModal from "../components/farm-items-display/farm-items-delete-modal";
-import EditModal from "../components/farm-items-display/farm-items-edit-modal";
+import {   Container } from "react-bootstrap";
+import DeleteModal from "../components/markets/MarketDeleteModal";
+import EditModal from "../components/markets/MarketEditModal";
 // import { getMarketVendor } from "../../serviceApis/loginapi";
 import { Badge, Table } from "reactstrap";
-import '../components/farm-items-display/farm-items-display.scss'
+import '../components/markets/marketListing.scss'
 import { deleteLabour, getLabours, getMarketVendor, getUsers } from "../serviceApis/loginapi";
 import AddLabourerModal from "../components/add-market-modal/AddLabourerModal";
 import { toast } from "react-toastify";
@@ -12,15 +12,8 @@ import { toast } from "react-toastify";
 const AdminDashboard = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
+
   const [marketVendors,setMarketVendors]=useState([])
-  const [labourerModal,setLabourerModal]=useState(false)
-
-  const handleDeleteClick = (item) => {
-    setSelectedItem(item);
-    setShowDeleteModal(true);
-  };
-
 
   const handlefetchUsers = async () => {
     try {

@@ -3,17 +3,14 @@ import { Modal, Button, Form } from "react-bootstrap";
 import "./add-market-modal/add-market-modal.scss";
 const ResetPasswordModal = ({ show, handleClose, handleSave, profile }) => {
   const [formData, setFormData] = useState({
-    email: profile?.email || "", // Prefilled with profile email if available
-    password: "",
+    email: profile?.email || "", 
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [formSubmitted, setFormSubmitted] = useState(false); // Track if form has been successfully submitted
-
+  const [formSubmitted, setFormSubmitted] = useState(false); 
   useEffect(() => {
     if (show) {
-      // Prefill email only when modal is first opened
       setFormData((prevFormData) => ({
         password: "",
         confirmPassword: "",
@@ -32,7 +29,7 @@ const ResetPasswordModal = ({ show, handleClose, handleSave, profile }) => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       handleSave(formData);
-      setFormSubmitted(true); // Mark form as successfully submitted
+      setFormSubmitted(true); 
     } else {
       setErrors(formErrors);
     }
@@ -50,16 +47,15 @@ const ResetPasswordModal = ({ show, handleClose, handleSave, profile }) => {
 
   const handleModalClose = () => {
     handleClose();
-    // Reset form only when saving was successful
     if (!formSubmitted) {
       setFormData({
-        email: profile?.email || "", // Preserve email if available
+        email: profile?.email || "", 
         password: "",
         confirmPassword: "",
       });
       setErrors({});
     }
-    setFormSubmitted(false); // Reset form submitted state
+    setFormSubmitted(false); 
   };
 
   return (
