@@ -1,4 +1,4 @@
-const { createMarketVendor, createLabourer, listLabourer, destroyLabourer } = require('../controllers/marketvendor');
+const { createMarketVendor, createLabourer, listLabourer, destroyLabourer, updateLabourer } = require('../controllers/marketvendor');
 const Joi = require('joi');
 
 const requestAccessSchema = Joi.object({
@@ -9,9 +9,8 @@ const requestAccessSchema = Joi.object({
 const addLabourerSchema = Joi.object({
     name: Joi.string().required(),
     details: Joi.string().allow(null),
-    cropName: Joi.string().required(),
-    quantity: Joi.number().required(),
-    amount: Joi.number().required()
+    code: Joi.string().required(),
+    phoneNumber: Joi.string().required()
 });
 
 async function requestAccess(req, res) {
@@ -73,10 +72,27 @@ async function deleteLabourer(req, res) {
     }
 }
 
+async function editLabourer(req, res) {
+    try {
+        const data = req.body;
+        const { error, value } = addLabourerSchema.validate(data);
+        if (error) {
+            throw new Error(error.details[0].message);
+        }
+        const result = await updateLabourer(req.params.id, data, req.userId);
+        res.send(result);
+    } catch(error) {
+        res.statusCode = 400;
+        res.send({
+            error: error.message
+        })
+    }
+}
 
 module.exports = {
     requestAccess,
     addLabourer,
     getLabourers,
-    deleteLabourer
+    deleteLabourer,
+    editLabourer
 }
