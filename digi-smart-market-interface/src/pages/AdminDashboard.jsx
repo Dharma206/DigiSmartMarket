@@ -10,8 +10,6 @@ import AddLabourerModal from "../components/add-market-modal/AddLabourerModal";
 import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const [marketVendors,setMarketVendors]=useState([])
 
@@ -26,14 +24,13 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-
     handlefetchUsers();
   }, []);
 
   return (
     <Container className="item-list">
      
-        <div className="d-flex justify-content-between mt-5 mb-3 mt"><div><h4 style={{fontWeight:700}}>Users</h4></div><div>  </div></div>
+        <div className="d-flex justify-content-between mt-5 mb-3 mt"><div><h4 style={{fontWeight:700}}>Market Admins</h4></div><div>  </div></div>
         
       <Table hover>
           <thead>
@@ -41,8 +38,6 @@ const AdminDashboard = () => {
             <th>User Name </th>
             <th>Email </th>
               <th>Role </th>
-
-
             </tr>
           </thead>
           <tbody>
@@ -57,7 +52,7 @@ const AdminDashboard = () => {
                 <tr key={item?.id}>
                   <td>{item?.userName}</td>
                   <td>{item?.email}</td>
-                  <td><Badge pill color={item?.role==='MarketAdmin'?"success":"info"}>
+                  <td><Badge pill color="info">
                   {item?.role}
                     </Badge>
                     </td>
@@ -68,23 +63,6 @@ const AdminDashboard = () => {
           </tbody>
         </Table>
 
-  
-{/* 
-   {showDeleteModal&&   <DeleteModal
-        show={showDeleteModal}
-        handleClose={handleCloseDeleteModal}
-        selectedItem={selectedItem}
-        handleDelete={handleConfirmDelete}
-      />}  */}
-{/* {showEditModal&&
-      <EditModal
-        show={showEditModal}
-        handleClose={handleCloseEditModal}
-        selectedItem={selectedItem}
-        fetchItems={handleMarketVendord}
-      />} */}
-
-      {/* {labourerModal&&<AddLabourerModal show={labourerModal} handleClose={()=>{setLabourerModal(false)}} handleGetLabourer={handleGetLabourer}/>} */}
     </Container>
   );
 };

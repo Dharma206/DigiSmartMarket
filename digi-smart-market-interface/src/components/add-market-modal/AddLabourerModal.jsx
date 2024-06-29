@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { addLabourer, createMerket, deleteMarket, getMarkets } from "../../serviceApis/loginapi";
+import { addLabourer, createMerket, deleteMarket, getMarkets, putEditLabourer } from "../../serviceApis/loginapi";
 import "./add-market-modal.scss";
 import { toast } from "react-toastify";
 import { Table } from "reactstrap";
@@ -8,22 +8,31 @@ import { Table } from "reactstrap";
 const AddLabourerModal = ({ show, handleClose ,handleGetLabourer}) => {
 
   const [errors, setErrors] = useState({});
-  const [form,setForm]=useState({});
+  const [form,setForm]=useState(show?.name?{name:show?.name||'',phoneNumber:show?.phoneNumber||'',code:show?.code||'',details:show?.details||''}:{});
 
 
   const validate = () => {
     const newErrors = {};
     if (!form?.name) newErrors.name = "Name is required";
-    if (!form?.quantity) newErrors.quantity = "Quantity is required";
-    if (!form?.amount) newErrors.amount = "Amount is required";
-    if (!form?.cropName) newErrors.cropName = "Crop Name is required";
+    if (!form?.code) newErrors.code = "Code is required";
+    if (!form?.phoneNumber) newErrors.phoneNumber = "Phone Number is required";
     return newErrors;
   };
 
   const handleAddLabourer=async()=>{
     try{
-      const res=await addLabourer({...form,quantity:parseInt(form.quantity)});
-      toast.success('Created produce & labourer successfully')
+      const res=await addLabourer({...form});
+      toast.success('Created  successfully')
+      handleGetLabourer();
+      handleClose()
+      setErrors({});
+    }catch(e){console.log(e)}
+  }
+
+  const handleEditLabourer=async()=>{
+    try{
+      const res=await putEditLabourer(show?.id,{...form});
+      toast.success('Saved successfully')
       handleGetLabourer();
       handleClose()
       setErrors({});
@@ -36,7 +45,12 @@ const AddLabourerModal = ({ show, handleClose ,handleGetLabourer}) => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
+      if(show?.id){
+        handleEditLabourer();
+      }else{
         handleAddLabourer();
+      }
+       
     }
   };
 
@@ -52,9 +66,9 @@ const AddLabourerModal = ({ show, handleClose ,handleGetLabourer}) => {
 
   return (
     <div className="custom-modal-wrapper">
-    <Modal show={show} size="lg" onHide={handleModalClose}>
+    <Modal show={!!show} size="lg" onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title><span >Add Produce & Labourer</span></Modal.Title>
+        <Modal.Title><span >Labourer</span></Modal.Title>
       </Modal.Header>
       <Modal.Body className="modal-body">
         <Form>
@@ -73,63 +87,43 @@ const AddLabourerModal = ({ show, handleClose ,handleGetLabourer}) => {
               {errors?.name && <div className="text-danger">{errors.name}</div>}
             </Form.Group>
             <Form.Group controlId="name" className="form-group half-width">
-              <Form.Label><span>Crop Name</span></Form.Label>
+              <Form.Label><span>Code</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter crop name"
-                value={form?.cropName||''}
-                name='cropName'
+                placeholder="Enter Code"
+                value={form?.code||''}
+                disabled={!!show?.code}
+                name='code'
                 onChange={handleInputChange}
-                className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                className={`form-control ${errors.code ? "is-invalid" : ""}`}
                 required
               />
-              {errors?.cropName && <div className="text-danger">{errors.cropName}</div>}
+              {errors?.code && <div className="text-danger">{errors.code}</div>}
             </Form.Group>
             <Form.Group controlId="name" className="form-group half-width">
-              <Form.Label><span> Details</span></Form.Label>
+              <Form.Label><span>Phone Number</span></Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter details"
+                placeholder="Enter Phone Number"
+                value={form?.phoneNumber||''}
+                name='phoneNumber'
+                onChange={handleInputChange}
+                className={`form-control ${errors.phoneNumber ? "is-invalid" : ""}`}
+                required
+              />
+              {errors?.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
+            </Form.Group>
+            <Form.Group controlId="name" className="form-group half-width">
+              <Form.Label><span>Details</span></Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Details"
                 value={form?.details||''}
                 name='details'
                 onChange={handleInputChange}
-                className={`form-control ${errors.name ? "is-invalid" : ""}`}
-
-              />
-            </Form.Group>
-            <Form.Group controlId="itemCode" className="form-group half-width">
-              <Form.Label>Amount</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter amount"
-                value={form?.amount||''}
-                name='amount'
-                onChange={handleInputChange}
-                className={`form-control ${
-                  errors.itemCode ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.details ? "is-invalid" : ""}`}
                 required
               />
-              {errors?.amount && (
-                <div className="text-danger">{errors.amount}</div>
-              )}
-            </Form.Group>
-            <Form.Group controlId="itemCode" className="form-group half-width">
-              <Form.Label>Crop Quantity</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter crop quantity"
-                value={form?.quantity||null}
-                name='quantity'
-                onChange={handleInputChange}
-                className={`form-control ${
-                  errors.itemCode ? "is-invalid" : ""
-                }`}
-                required
-              />
-              {errors?.quantity && (
-                <div className="text-danger">{errors.quantity}</div>
-              )}
             </Form.Group>
         </Form>
         <div className="d-flex justify-content-end mb-3">
@@ -145,7 +139,7 @@ style={{marginRight:'5px'}}>
           onClick={handleSubmit}
           className="add-item-button-wrapper"
         >
-          Add
+          Save
         </Button>
         </div>
 

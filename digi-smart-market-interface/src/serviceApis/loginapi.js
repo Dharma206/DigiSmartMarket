@@ -81,6 +81,16 @@ export const getLabours = async () => {
   }
 };
 
+export const getproduces = async () => {
+  try {
+    const response = await axiosInstance.get("/produce");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
 export const getUsers = async () => {
   try {
     const response = await axiosInstance.get("/users");
@@ -95,6 +105,17 @@ export const getUsers = async () => {
 export const deleteLabour = async (id) => {
   try {
     const response = await axiosInstance.delete(`/labourer/${id}`);
+    return response.data;
+  } catch (error) {
+    handleError(error)
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
+export const deleteProduce = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/produce/${id}`);
     return response.data;
   } catch (error) {
     handleError(error)
@@ -157,6 +178,40 @@ export const addLabourer= async (data) => {
     throw error;
   }
 
+};
+
+export const putEditLabourer = async (id,data) => {
+  try {
+    const response = await axiosInstance.put(`/labourer/${id}`, data);
+    return response.data;
+  } catch (error) {
+    handleError(error)
+    console.error("Error editing item:", error);
+    throw error;
+  }
+};
+
+export const addProduce= async (data) => {
+  try {
+    const response = await axiosInstance.post("/produce", data);
+    return response.data;
+  } catch (error) {
+    handleError(error)
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+
+};
+
+export const putEditProduce = async (id,data) => {
+  try {
+    const response = await axiosInstance.put(`/produce/${id}`, data);
+    return response.data;
+  } catch (error) {
+    handleError(error)
+    console.error("Error editing item:", error);
+    throw error;
+  }
 };
 
 export const createMerket = async (data) => {
