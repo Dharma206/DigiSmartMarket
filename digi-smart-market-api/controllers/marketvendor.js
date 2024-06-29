@@ -63,7 +63,9 @@ async function createLabourer(data, userId) {
         const laborer = await models.Laborer.create({
             marketVendorId: marketVendorExists.id,
             name: data.name,
-            details: data.details
+            details: data.details,
+            phoneNumber: data.phoneNumber,
+            code: data.code
         })
         logger.info('Laborer created successfully')
 
@@ -142,6 +144,8 @@ async function listLabourer(userId) {
                     id: ele.id,
                     marketVendorId: ele.marketVendorId,
                     name: ele.name,
+                    code: ele.code,
+                    phoneNumber: ele.phoneNumber,
                     details: ele.details,
                     createdAt: ele.createdAt,
                     updatedAt: ele.updatedAt,

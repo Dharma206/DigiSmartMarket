@@ -215,9 +215,7 @@ const checkRole = (roles) => {
 async function listUsers() {
   try {
     const users = await models.User.findAndCountAll({ where: {
-      role: {
-        [Op.ne]: 'Admin'
-      }
+      role: 'MarketAdmin'
     }});
     const result = users.rows.map(ele => {
       return {
