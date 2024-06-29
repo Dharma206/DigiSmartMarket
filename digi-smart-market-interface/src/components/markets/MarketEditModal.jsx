@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { getLabours } from "../../serviceApis/loginapi";
+import { getLabours, getproduces } from "../../serviceApis/loginapi";
 import "./marketEditModal.scss"; 
 import { Table } from "reactstrap";
 
@@ -19,8 +19,23 @@ const EditModal = ({
     }
   }
 
+
+  const [marketVendors,setMarketVendors]=useState([])
+
+  const handlefetchUsers = async () => {
+    try {
+      const userData = await getproduces();
+      setMarketVendors(userData?.response||[]);
+      console.log("userData->", userData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+
   useEffect(() => {
     fetchLabours();
+    handlefetchUsers();
   }, []);
 
   const handleModalClose = () => {
@@ -29,22 +44,57 @@ const EditModal = ({
 
 
 
+
   return (
     <Modal show={show} size='lg' onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Labours</Modal.Title>
+        <Modal.Title>Produces and Labours</Modal.Title>
       </Modal.Header>
       <Modal.Body className="modal-body">
+        <h4  style={{fontWeight:600,fontSize:'18px'}}>Produces</h4>
+      <Table hover responsive>
+          <thead>
+            <tr>
+              <th>Crop Name</th>
 
+              <th>Details</th>              <th>Labourer Name </th>
+              <th>Labourer Code </th>
+              <th>Amount</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+        { marketVendors?.length === 0 ? (
+              <tr>
+                <td colSpan="9" className="no-records-found">
+                  No records found
+                </td>
+              </tr>
+            ) : (
+              marketVendors?.map((item) => (
+                <tr key={item.id}>
+                  <td>{item?.cropName ||'-'}</td>
+                  <td>{item?.details||'-'}</td>
+                  <td>{item?.Laborer?.name||'-'}</td>
+                  <td>{item?.Laborer?.code||'-'}</td>
+                  <td>{item?.amount||'-'}</td>
+                  <td>{item?.quantity||'-'}</td>
+               
+            
+                
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+<h4 className="mt-4" style={{fontWeight:600,fontSize:'18px'}}>Labourers</h4>
         <Table hover responsive>
           <thead>
             <tr>
-              <th>Market Name</th>
-              <th>Vendor Name</th>
-              <th>Vendor Email</th>
-              <th>Labourer Name </th>
-              <th>Amount</th>
-              <th>Quantity</th>
+              <th>Name </th>
+              <th>Code </th>
+              <th>Details </th>
+              <th>Phone Number </th>
             </tr>
           </thead>
           <tbody>
@@ -57,12 +107,11 @@ const EditModal = ({
             ) : (
               labours?.map((item) => (
                 <tr key={item.id}>
-                  <td>{item?.market?.marketName ||'-'}</td>
-                  <td>{item?.marketVendor?.userName||'-'}</td>
-                  <td>{item?.marketVendor?.email||'-'}</td>
-                  <td>{item?.name||'-'}</td>
-                  <td>{item?.produce?.[0]?.amount||'-'}</td>
-                  <td>{item?.produce?.[0]?.quantity||'-'}</td>
+                  <td>{item?.name ||'-'}</td>
+                  <td>{item?.code||'-'}</td>
+                  <td>{item?.details||'-'}</td>
+                  <td>{item?.phoneNumber||'-'}</td>
+                  
                
             
                 
