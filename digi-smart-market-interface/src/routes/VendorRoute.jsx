@@ -9,7 +9,7 @@ const VendorRouter = ({ children }) => {
 
   console.log("private auth->", isAuthenticated);
 
-  return isAuthenticated&&userDetails?.role==='MarketVendor' ? children : <Navigate to="/login" />;
+  return isAuthenticated&&userDetails?.role==='MarketVendor' ? children :isAuthenticated? <Navigate to="/dashboard/all" />: <Navigate to="/login" />;
 };
 
 export default VendorRouter;
