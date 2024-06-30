@@ -101,7 +101,7 @@ const AddProduceModal = ({ show, handleClose ,handleGetProduces}) => {
               <Form.Label><span>Labourer Name</span></Form.Label>
               <Form.Select name='laborerId'  onChange={handleInputChange} value={form?.laborerId ||''} className="mb-3" aria-label="Default digi-smart-market example">
             <option>Select Labourer </option>
-                {labourersList?.length&&labourersList?.map(item=> <option value={item?.id}>{item?.marketVendor?.userName}</option>)}
+                {labourersList?.length&&labourersList?.map(item=> <option value={item?.id}>{item?.name}</option>)}
           </Form.Select>
           {errors?.laborerId && <div className="text-danger">{errors.laborerId}</div>}
             </Form.Group>
