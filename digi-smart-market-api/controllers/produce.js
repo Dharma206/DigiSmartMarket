@@ -20,6 +20,7 @@ async function createProduce(data, userId) {
             cropName: data.cropName,
             quantity: data.quantity,
             amount: data.amount,
+            details: data.details,
             laborerId: data.laborerId
         })
         logger.info('Produce created successfully')
